@@ -11,6 +11,8 @@ import storiesRouter from './routes/stories.js';
 import lawyersRouter from './routes/lawyers.js';
 import learnRouter from './routes/learn.js';
 import authRouter from './routes/auth.js';
+import chatRouter from './routes/chat.js';
+import newsRouter from './routes/news.js';
 
 dotenv.config();
 
@@ -56,6 +58,8 @@ app.use('/api/cases', casesRouter);
 app.use('/api/stories', storiesRouter);
 app.use('/api/lawyers', lawyersRouter);
 app.use('/api/learn', learnRouter);
+app.use('/api/chat', chatRouter);
+app.use('/api/news', newsRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
