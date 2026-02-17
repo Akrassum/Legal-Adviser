@@ -62,6 +62,16 @@ router.post('/single', upload.single('document'), async (req, res) => {
     });
   } catch (error) {
     console.error('Upload error:', error);
+    
+    // Clean up uploaded file if it exists
+    if (req.file && req.file.path) {
+      try {
+        await fs.unlink(req.file.path);
+      } catch (cleanupError) {
+        console.error('File cleanup error:', cleanupError);
+      }
+    }
+    
     res.status(500).json({ error: error.message });
   }
 });
@@ -90,6 +100,18 @@ router.post('/multiple', upload.array('documents', 5), async (req, res) => {
     });
   } catch (error) {
     console.error('Upload error:', error);
+    
+    // Clean up uploaded files if they exist
+    if (req.files && req.files.length > 0) {
+      for (const file of req.files) {
+        try {
+          await fs.unlink(file.path);
+        } catch (cleanupError) {
+          console.error('File cleanup error:', cleanupError);
+        }
+      }
+    }
+    
     res.status(500).json({ error: error.message });
   }
 });

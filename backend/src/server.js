@@ -60,6 +60,35 @@ app.use('/api/learn', learnRouter);
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Error:', err);
+  
+  // Handle Multer-specific errors
+  if (err.name === 'MulterError') {
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      return res.status(400).json({
+        error: 'File size too large',
+        details: 'Maximum file size is 10MB'
+      });
+    }
+    if (err.code === 'LIMIT_FILE_COUNT') {
+      return res.status(400).json({
+        error: 'Too many files',
+        details: 'Maximum 5 files allowed'
+      });
+    }
+    if (err.code === 'LIMIT_UNEXPECTED_FILE') {
+      return res.status(400).json({
+        error: 'Unexpected file field',
+        details: err.message
+      });
+    }
+    // Generic multer error
+    return res.status(400).json({
+      error: 'File upload error',
+      details: err.message
+    });
+  }
+  
+  // Handle other errors
   res.status(err.status || 500).json({
     error: err.message || 'Internal server error',
     ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
