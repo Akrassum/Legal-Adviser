@@ -1,0 +1,30 @@
+{
+  "name": "legal-adviser",
+  "version": "1.0.0",
+  "description": "AI-powered legal advisory platform for Indian users",
+  "main": "backend/src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && node --watch src/server.js",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "start": "node backend/src/server.js",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install"
+  },
+  "keywords": [
+    "legal",
+    "ai",
+    "india",
+    "advisory",
+    "constitution"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
