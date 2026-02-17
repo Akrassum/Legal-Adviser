@@ -3,6 +3,10 @@ import aiService from '../services/aiService.js';
 
 const router = express.Router();
 
+// Constants
+const MAX_CONVERSATION_MESSAGES = 20;
+const MAX_FOLLOW_UP_SUGGESTIONS = 4;
+
 // Store conversation history in memory (in production, use database)
 const conversations = new Map();
 
@@ -56,9 +60,9 @@ router.post('/message', async (req, res) => {
       timestamp: new Date().toISOString()
     });
 
-    // Store conversation (keep last 10 messages)
-    if (history.length > 20) {
-      history = history.slice(-20);
+    // Store conversation (keep last MAX_CONVERSATION_MESSAGES messages)
+    if (history.length > MAX_CONVERSATION_MESSAGES) {
+      history = history.slice(-MAX_CONVERSATION_MESSAGES);
     }
     conversations.set(convId, history);
 
@@ -144,7 +148,7 @@ async function generateFollowUpSuggestions(userMessage, aiResponse, language) {
       : 'How long will this take?'
   );
 
-  return suggestions.slice(0, 4); // Return max 4 suggestions
+  return suggestions.slice(0, MAX_FOLLOW_UP_SUGGESTIONS); // Return max suggestions
 }
 
 // Get conversation history

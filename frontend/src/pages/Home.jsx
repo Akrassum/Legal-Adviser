@@ -12,6 +12,7 @@ const translations = {
     trending: 'Trending Legal News',
     popularQuestions: 'Popular Questions',
     howCanHelp: 'How can I help you today?',
+    suggestedFollowUps: 'Suggested follow-ups:',
     exampleQuestions: [
       'How do I file a consumer complaint?',
       'What are my rights as a tenant?',
@@ -38,6 +39,7 @@ const translations = {
     trending: 'ट्रेंडिंग कानूनी समाचार',
     popularQuestions: 'लोकप्रिय प्रश्न',
     howCanHelp: 'मैं आज आपकी कैसे मदद कर सकता हूं?',
+    suggestedFollowUps: 'सुझाए गए फॉलो-अप:',
     exampleQuestions: [
       'मैं उपभोक्ता शिकायत कैसे दर्ज करूं?',
       'किरायेदार के रूप में मेरे अधिकार क्या हैं?',
@@ -299,7 +301,7 @@ function Home({ language }) {
                 borderTop: '1px solid var(--border)'
               }}>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.5rem', fontWeight: '600' }}>
-                  Suggested follow-ups:
+                  {t.suggestedFollowUps}
                 </div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                   {followUpSuggestions.map((suggestion, idx) => (
